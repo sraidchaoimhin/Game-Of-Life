@@ -74,6 +74,12 @@ class Cell(object):
             return count -1
         else:
             return count
+
+    def checkNextStep():
+        
+        if checkNearbyCells => 2 => 3
+            return self.willLive = True:
+           
         
 '''Define our functions'''
  
@@ -104,3 +110,4 @@ print myGrid
 randomlyPlaceLivingCells(20, myGrid)
 print myGrid
 print myGrid.fullgrid[9][7].checkNearbyCells(myGrid)
+print checkNextStep.checkNearbyDells(3)
