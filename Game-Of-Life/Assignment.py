@@ -47,10 +47,10 @@ class Cell(object):
         self.xposition = xposition
         self.yposition = yposition
         self.isliving = isliving
-        
-    def doNextStep():
-        self.isAlive =self.willLive
         self.willLive = False
+        
+    def doNextStep(self):
+        self.isliving = self.willLive
         
     def checkNearbyCells(self, grid):
         count = 0
@@ -75,10 +75,14 @@ class Cell(object):
         else:
             return count
 
-    def checkNextStep():
+    def checkNextStep(self, grid):
         
-        if checkNearbyCells => 2 => 3
-            return self.willLive = True:
+        if self.isliving == False:
+            if self.checkNearbyCells(grid) == 3:
+                self.willLive = True
+        if self.isliving == True:
+            if self.checkNearbyCells(grid) < 2 or self.checkNearbyCells(grid) > 3:
+                self.willLive = False
            
         
 '''Define our functions'''
@@ -90,8 +94,24 @@ def PrintTheGrid():
 def GetAdjacentCells():
     pass
 
-def nextStep():
-    pass
+def nextStep(grid):
+    for row in grid.fullgrid:
+        for cell in row:
+            cell.checkNextStep(grid)
+    for row in grid.fullgrid:
+        for cell in row:
+            cell.doNextStep()  
+    '''
+    The code below wasn't working to I decided to try a while loop instead.
+    for cell in row in grid.fullgrid:
+        
+        (for every cell in every row) deleted earlier
+      
+        cell.checkNextStep(grid)
+    for cell in row in grid.fullgrid:
+        cell.doNextStep()
+       ''' 
+    
 
 def randomlyPlaceLivingCells(n, grid):
     i = 0
@@ -100,14 +120,57 @@ def randomlyPlaceLivingCells(n, grid):
         if pickedCell.isliving == False:
             pickedCell.isliving = True
             i +=1
+            
+'''            
+    for self.isliving in myGrid:
+        if self.checkNearbyCells(grid) < 2 or self.checkNearbyCells(grid) > 3:
+                self.willLive = False
+
+        if self.isliving == False:
+            if self.checkNearbyCells(grid) == 3:
+                self.willLive = True
+            
+            '''
 def isEmptyGrid():
     pass
 
 ''' Main programme'''
 
+
+'''
 myGrid = Grid(8,12)
 print myGrid
 randomlyPlaceLivingCells(20, myGrid)
 print myGrid
 print myGrid.fullgrid[9][7].checkNearbyCells(myGrid)
-print checkNextStep.checkNearbyDells(3)
+print myGrid.fullgrid[9][7].checkNextStep(myGrid)
+nextStep(myGrid)
+print myGrid
+nextStep(myGrid)
+print myGrid'''
+
+
+i = raw_input("Enter grid height: ")
+i = int(i)
+j = raw_input("Enter grid width: ")
+j = int(j)
+myGrid = Grid(i, j)
+print myGrid
+
+
+n = raw_input("Select number of randomly placed living cells:")
+n = int(n)
+if i * j > n:
+    randomlyPlaceLivingCells(n, myGrid)
+else:
+    print "Too many cells"
+print myGrid
+
+
+m = raw_input("Type 'next' to move to next step, or 'new' to start a new grid")
+m = str(m)
+if m == 'next':
+    nextStep(myGrid)
+    print myGrid
+elif m == 'new':
+    pass
