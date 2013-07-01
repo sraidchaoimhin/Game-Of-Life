@@ -85,15 +85,15 @@ class Cell(object):
                 self.willLive = False
            
         
-'''Define our functions'''
- 
+'''Define our functions
+
 def PrintTheGrid():
     pass
     
 
 def GetAdjacentCells():
     pass
-
+'''
 def nextStep(grid):
     for row in grid.fullgrid:
         for cell in row:
@@ -119,6 +119,7 @@ def randomlyPlaceLivingCells(n, grid):
         pickedCell = grid.fullgrid[random.randint(0, grid.gridheight-1)][random.randint(0, grid.gridwidth-1)]
         if pickedCell.isliving == False:
             pickedCell.isliving = True
+            pickedCell.willLive = True
             i +=1
             
 '''            
@@ -134,8 +135,6 @@ def randomlyPlaceLivingCells(n, grid):
 def isEmptyGrid():
     pass
 
-''' Main programme'''
-
 
 '''
 myGrid = Grid(8,12)
@@ -149,28 +148,54 @@ print myGrid
 nextStep(myGrid)
 print myGrid'''
 
+def newGrid():
+    
+    check = False
+    while check == False:
+        i = raw_input("Enter grid height: ")
+        if int(i) > 0:
+            i = int(i)
+            check = True
+        else:
+            print "Bad number"
+            
+    check = False
+    while check == False:
+        j = raw_input("Enter grid width: ")
+        if int(j) > 0:
+            j = int(j)
+            check = True
+        else:
+            print "Bad number."
+                
+    grid = Grid(i, j)
+    
+    check = False
+    while check == False:
+        n = raw_input("Select number of randomly placed living cells: ")
+        n = int(n)
+        if i*j > n and n > 0:
+            randomlyPlaceLivingCells(n, grid)
+            check = True
+        else:
+            print "Bad number."
+            
+    print grid
+    return grid
 
-i = raw_input("Enter grid height: ")
-i = int(i)
-j = raw_input("Enter grid width: ")
-j = int(j)
-myGrid = Grid(i, j)
-print myGrid
+''' Main programme'''
 
+myGrid = newGrid()
 
-n = raw_input("Select number of randomly placed living cells:")
-n = int(n)
-if i * j > n:
-    randomlyPlaceLivingCells(n, myGrid)
-else:
-    print "Too many cells"
-print myGrid
-
-
-m = raw_input("Type 'next' to move to next step, or 'new' to start a new grid")
-m = str(m)
-if m == 'next':
-    nextStep(myGrid)
-    print myGrid
-elif m == 'new':
-    pass
+check = False
+while check == False:
+    m = raw_input("Type 'next' to move to next step, or 'new' to start a new grid: ")
+    m = str(m)
+    if m == "next":
+        nextStep(myGrid)
+        print myGrid
+    elif m =="new":
+        myGrid = newGrid()
+    elif m == "quit":
+        check = True
+    
