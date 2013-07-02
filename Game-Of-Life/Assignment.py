@@ -1,7 +1,10 @@
 import random
 
 
-''' Define our classes'''
+''' 
+                                      Classes
+
+First we create our classes.'''
 
 class  Grid(object):
     def __init__(self, gridwidth, gridheight):
@@ -15,8 +18,9 @@ class  Grid(object):
         
         row = []
         column = []
+
         
-        while i < gridheight:
+while i < gridheight:
             while j < gridwidth:
                 row.append(Cell(i, j))
                 j += 1
@@ -26,9 +30,9 @@ class  Grid(object):
 
             j = 0
             i += 1 
-        self.fullgrid = column
+self.fullgrid = column
         
-    def __str__(self):
+def __str__(self):
         gridString = ""
         for row in self.fullgrid:
             for cell in row:
@@ -42,6 +46,8 @@ class  Grid(object):
                     
         return gridString
     
+    
+''' Every cell has an x position, a y position and can be alive or dead. '''
 class Cell(object):
     def __init__(self, xposition, yposition, isliving=False):
         self.xposition = xposition
@@ -49,10 +55,13 @@ class Cell(object):
         self.isliving = isliving
         self.willLive = False
         
-    def doNextStep(self):
+        
+''' This method advances a cell to the next step. '''
+def doNextStep(self):
         self.isliving = self.willLive
         
-    def checkNearbyCells(self, grid):
+''' This method checks how many neighbours a cell has. '''        
+def checkNearbyCells(self, grid):
         count = 0
         
         x = self.xposition -1
@@ -75,7 +84,8 @@ class Cell(object):
         else:
             return count
 
-    def checkNextStep(self, grid):
+''' In this method we are checking will a cell live or die.  Then we carry out the doNextStep function and print the grid. '''
+def checkNextStep(self, grid):
         
         if self.isliving == False:
             if self.checkNearbyCells(grid) == 3:
@@ -85,15 +95,18 @@ class Cell(object):
                 self.willLive = False
            
         
-'''Define our functions
-
-def PrintTheGrid():
-    pass
-    
-
-def GetAdjacentCells():
-    pass
 '''
+                         Functions
+
+The nextStep function takes the grid, runs through all its functions and advances it to the next step.
+
+So it does two things:
+
+1.  It tells every cell in the grid to check the next step as if to make a ghost grid so that each cell
+    is making an image of itself on this invisible grid before advancing to the next step.
+
+2.  Then it tells every cell in the grid to 'jump together' and advance to the next step.
+                                         '''                
 def nextStep(grid):
     for row in grid.fullgrid:
         for cell in row:
@@ -112,7 +125,7 @@ def nextStep(grid):
         cell.doNextStep()
        ''' 
     
-
+''' This function randomly places the requested number of cells. '''
 def randomlyPlaceLivingCells(n, grid):
     i = 0
     while i < n:
@@ -122,32 +135,7 @@ def randomlyPlaceLivingCells(n, grid):
             pickedCell.willLive = True
             i +=1
             
-'''            
-    for self.isliving in myGrid:
-        if self.checkNearbyCells(grid) < 2 or self.checkNearbyCells(grid) > 3:
-                self.willLive = False
-
-        if self.isliving == False:
-            if self.checkNearbyCells(grid) == 3:
-                self.willLive = True
-            
-            '''
-def isEmptyGrid():
-    pass
-
-
-'''
-myGrid = Grid(8,12)
-print myGrid
-randomlyPlaceLivingCells(20, myGrid)
-print myGrid
-print myGrid.fullgrid[9][7].checkNearbyCells(myGrid)
-print myGrid.fullgrid[9][7].checkNextStep(myGrid)
-nextStep(myGrid)
-print myGrid
-nextStep(myGrid)
-print myGrid'''
-
+''' This is a function that sets up a new grid and places the cells. '''
 def newGrid():
     
     check = False
@@ -183,8 +171,10 @@ def newGrid():
     print grid
     return grid
 
-''' Main programme'''
+''' 
+                                              Main programme
 
+This starts a new grid.                             '''
 myGrid = newGrid()
 
 check = False
